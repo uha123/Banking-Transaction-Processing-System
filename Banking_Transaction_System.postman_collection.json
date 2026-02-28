@@ -57,14 +57,15 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/accounts",
+                            "raw": "{{baseUrl}}/api/v1/accounts/create",
                             "host": [
                                 "{{baseUrl}}"
                             ],
                             "path": [
                                 "api",
                                 "v1",
-                                "accounts"
+                                "accounts",
+                                "create"
                             ]
                         },
                         "body": {
@@ -99,14 +100,15 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/accounts",
+                            "raw": "{{baseUrl}}/api/v1/accounts/create",
                             "host": [
                                 "{{baseUrl}}"
                             ],
                             "path": [
                                 "api",
                                 "v1",
-                                "accounts"
+                                "accounts",
+                                "create"
                             ]
                         },
                         "body": {
@@ -174,6 +176,34 @@
         {
             "name": "Transactions",
             "item": [
+                {
+                    "name": "Process (Unified)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/transactions/process",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "transactions",
+                                "process"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"idempotencyKey\": \"proc-001\",\n  \"transactionType\": \"TRANSFER\",\n  \"sourceAccountId\": \"{{accountId1}}\",\n  \"destinationAccountId\": \"{{accountId2}}\",\n  \"amount\": 10.00,\n  \"currency\": \"USD\",\n  \"description\": \"Unified process test\",\n  \"channel\": \"ONLINE\"\n}"
+                        }
+                    }
+                },
                 {
                     "name": "Deposit",
                     "event": [
@@ -382,6 +412,30 @@
                         "body": {
                             "mode": "raw",
                             "raw": "{\n  \"idempotencyKey\": \"bulk-001\",\n  \"sourceAccountId\": \"{{accountId1}}\",\n  \"batchId\": \"BATCH-20260228\",\n  \"currency\": \"USD\",\n  \"processingMode\": \"PARALLEL\",\n  \"transactions\": [\n    {\n      \"sequenceNumber\": 1,\n      \"destinationAccountId\": \"{{accountId2}}\",\n      \"amount\": 50.00,\n      \"description\": \"Bulk item 1\"\n    },\n    {\n      \"sequenceNumber\": 2,\n      \"destinationAccountId\": \"{{accountId2}}\",\n      \"amount\": 75.00,\n      \"description\": \"Bulk item 2\"\n    }\n  ]\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Get Transaction History",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/transactions/history?accountId={{accountId1}}",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "transactions",
+                                "history"
+                            ],
+                            "query": [
+                                {
+                                    "key": "accountId",
+                                    "value": "{{accountId1}}"
+                                }
+                            ]
                         }
                     }
                 },

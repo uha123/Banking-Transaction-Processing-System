@@ -145,7 +145,7 @@ public class TransactionService {
         // TRANSFER — 1M+ daily txns + ACID compliance via PostgreSQL
         // ═══════════════════════════════════════════════════════════════════════════
 
-        private Mono<TransactionResponse> handleTransfer(TransactionRequest request) {
+        public Mono<TransactionResponse> handleTransfer(TransactionRequest request) {
                 final UUID sourceId = Objects.requireNonNull(request.getSourceAccountId(),
                                 "sourceAccountId must not be null");
                 final UUID destId = Objects.requireNonNull(request.getDestinationAccountId(),
@@ -202,7 +202,7 @@ public class TransactionService {
         // PAYMENT — Spring WebFlux reactive, 50% lower memory
         // ═══════════════════════════════════════════════════════════════════════════
 
-        private Mono<TransactionResponse> handlePayment(TransactionRequest request) {
+        public Mono<TransactionResponse> handlePayment(TransactionRequest request) {
                 final UUID sId = Objects.requireNonNull(request.getSourceAccountId(),
                                 "PAYMENT requires sourceAccountId");
                 return accountRepository.findById(sId)
@@ -248,7 +248,7 @@ public class TransactionService {
         // REVERSAL — Kafka event sourcing, zero data loss failover
         // ═══════════════════════════════════════════════════════════════════════════
 
-        private Mono<TransactionResponse> handleReversal(TransactionRequest request) {
+        public Mono<TransactionResponse> handleReversal(TransactionRequest request) {
                 if (request.getOriginalTransactionId() == null) {
                         return Mono.error(new IllegalArgumentException("REVERSAL requires originalTransactionId"));
                 }
@@ -312,7 +312,7 @@ public class TransactionService {
                                 });
         }
 
-        private Mono<TransactionResponse> handleDeposit(TransactionRequest request) {
+        public Mono<TransactionResponse> handleDeposit(TransactionRequest request) {
                 final UUID accId = Objects.requireNonNull(request.getAccountId(),
                                 "DEPOSIT requires accountId");
                 return accountService.credit(accId, request.getAmount())
@@ -337,7 +337,7 @@ public class TransactionService {
                                                 .build());
         }
 
-        private Mono<TransactionResponse> handleWithdraw(TransactionRequest request) {
+        public Mono<TransactionResponse> handleWithdraw(TransactionRequest request) {
                 final UUID accId = Objects.requireNonNull(request.getAccountId(),
                                 "WITHDRAW requires accountId");
                 return accountRepository.findById(accId)
@@ -372,7 +372,7 @@ public class TransactionService {
                                 });
         }
 
-        private Mono<TransactionResponse> handleRefund(TransactionRequest request) {
+        public Mono<TransactionResponse> handleRefund(TransactionRequest request) {
                 if (request.getOriginalTransactionId() == null) {
                         return Mono.error(new IllegalArgumentException("REFUND requires originalTransactionId"));
                 }

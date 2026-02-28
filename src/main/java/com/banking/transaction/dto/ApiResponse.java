@@ -19,6 +19,7 @@ public class ApiResponse<T> {
     private T data;
     private LocalDateTime timestamp;
     private String errorCode;
+    private int status;
 
     public static <T> ApiResponse<T> success(T data, String message) {
         return success(data, message, 200);
@@ -29,6 +30,7 @@ public class ApiResponse<T> {
                 .success(true)
                 .message(message)
                 .data(data)
+                .status(statusCode)
                 .timestamp(LocalDateTime.now())
                 .build();
     }

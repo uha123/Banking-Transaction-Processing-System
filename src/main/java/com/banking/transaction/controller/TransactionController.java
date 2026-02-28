@@ -2,6 +2,7 @@ package com.banking.transaction.controller;
 
 import com.banking.transaction.constant.ApiConstants;
 import com.banking.transaction.dto.ApiResponse;
+import com.banking.transaction.dto.BulkTransactionResponse;
 import com.banking.transaction.dto.TransactionRequest;
 import com.banking.transaction.dto.TransactionResponse;
 import com.banking.transaction.service.TransactionService;
@@ -45,9 +46,8 @@ public class TransactionController {
                         @Valid @RequestBody TransactionRequest request) {
 
                 log.info("Transfer request received for account: {}", request.getSourceAccountId());
-                request.setTransactionType(ApiConstants.TYPE_TRANSFER);
 
-                return transactionService.processTransaction(request)
+                return transactionService.handleTransfer(request)
                                 .map(response -> ResponseEntity.status(HttpStatus.OK)
                                                 .body(ApiResponse.success(
                                                                 response,
@@ -61,9 +61,8 @@ public class TransactionController {
                         @Valid @RequestBody TransactionRequest request) {
 
                 log.info("Deposit request received for account: {}", request.getAccountId());
-                request.setTransactionType(ApiConstants.TYPE_DEPOSIT);
 
-                return transactionService.processTransaction(request)
+                return transactionService.handleDeposit(request)
                                 .map(response -> ResponseEntity.status(HttpStatus.OK)
                                                 .body(ApiResponse.success(
                                                                 response,
@@ -77,9 +76,8 @@ public class TransactionController {
                         @Valid @RequestBody TransactionRequest request) {
 
                 log.info("Withdraw request received for account: {}", request.getAccountId());
-                request.setTransactionType(ApiConstants.TYPE_WITHDRAW);
 
-                return transactionService.processTransaction(request)
+                return transactionService.handleWithdraw(request)
                                 .map(response -> ResponseEntity.status(HttpStatus.OK)
                                                 .body(ApiResponse.success(
                                                                 response,
@@ -93,9 +91,8 @@ public class TransactionController {
                         @Valid @RequestBody TransactionRequest request) {
 
                 log.info("Payment request received for merchant: {}", request.getMerchantId());
-                request.setTransactionType(ApiConstants.TYPE_PAYMENT);
 
-                return transactionService.processTransaction(request)
+                return transactionService.handlePayment(request)
                                 .map(response -> ResponseEntity.status(HttpStatus.OK)
                                                 .body(ApiResponse.success(
                                                                 response,
@@ -109,9 +106,8 @@ public class TransactionController {
                         @Valid @RequestBody TransactionRequest request) {
 
                 log.info("Refund request received for original transaction: {}", request.getOriginalTransactionId());
-                request.setTransactionType(ApiConstants.TYPE_REFUND);
 
-                return transactionService.processTransaction(request)
+                return transactionService.handleRefund(request)
                                 .map(response -> ResponseEntity.status(HttpStatus.OK)
                                                 .body(ApiResponse.success(
                                                                 response,
@@ -125,9 +121,8 @@ public class TransactionController {
                         @Valid @RequestBody TransactionRequest request) {
 
                 log.info("Reversal request received for original transaction: {}", request.getOriginalTransactionId());
-                request.setTransactionType(ApiConstants.TYPE_REVERSAL);
 
-                return transactionService.processTransaction(request)
+                return transactionService.handleReversal(request)
                                 .map(response -> ResponseEntity.status(HttpStatus.OK)
                                                 .body(ApiResponse.success(
                                                                 response,
@@ -137,13 +132,12 @@ public class TransactionController {
 
         // ===================== BULK =====================
         @PostMapping(ApiConstants.BULK)
-        public Mono<ResponseEntity<ApiResponse<TransactionResponse>>> bulk(
+        public Mono<ResponseEntity<ApiResponse<BulkTransactionResponse>>> bulk(
                         @Valid @RequestBody TransactionRequest request) {
 
                 log.info("Bulk request received, batch: {}", request.getBatchId());
-                request.setTransactionType(ApiConstants.TYPE_BULK);
 
-                return transactionService.processTransaction(request)
+                return transactionService.processBulkTransaction(request)
                                 .map(response -> ResponseEntity.status(HttpStatus.OK)
                                                 .body(ApiResponse.success(
                                                                 response,
