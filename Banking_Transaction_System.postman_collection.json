@@ -7,11 +7,6 @@
     },
     "variable": [
         {
-            "key": "baseUrl",
-            "value": "http://localhost:8080",
-            "type": "string"
-        },
-        {
             "key": "accountId1",
             "value": "",
             "type": "string"
@@ -57,9 +52,9 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/accounts/create",
+                            "raw": "http://localhost:8080/api/v1/accounts/create",
                             "host": [
-                                "{{baseUrl}}"
+                                "http://localhost:8080"
                             ],
                             "path": [
                                 "api",
@@ -100,9 +95,9 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/accounts/create",
+                            "raw": "http://localhost:8080/api/v1/accounts/create",
                             "host": [
-                                "{{baseUrl}}"
+                                "http://localhost:8080"
                             ],
                             "path": [
                                 "api",
@@ -122,9 +117,9 @@
                     "request": {
                         "method": "GET",
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/accounts/{{accountId1}}",
+                            "raw": "http://localhost:8080/api/v1/accounts/{{accountId1}}",
                             "host": [
-                                "{{baseUrl}}"
+                                "http://localhost:8080"
                             ],
                             "path": [
                                 "api",
@@ -140,9 +135,9 @@
                     "request": {
                         "method": "GET",
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/accounts",
+                            "raw": "http://localhost:8080/api/v1/accounts",
                             "host": [
-                                "{{baseUrl}}"
+                                "http://localhost:8080"
                             ],
                             "path": [
                                 "api",
@@ -157,9 +152,9 @@
                     "request": {
                         "method": "GET",
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/accounts/{{accountId1}}/balance",
+                            "raw": "http://localhost:8080/api/v1/accounts/{{accountId1}}/balance",
                             "host": [
-                                "{{baseUrl}}"
+                                "http://localhost:8080"
                             ],
                             "path": [
                                 "api",
@@ -187,9 +182,9 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/transactions/process",
+                            "raw": "http://localhost:8080/api/v1/transactions/process",
                             "host": [
-                                "{{baseUrl}}"
+                                "http://localhost:8080"
                             ],
                             "path": [
                                 "api",
@@ -230,9 +225,9 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/transactions/deposit",
+                            "raw": "http://localhost:8080/api/v1/transactions/deposit",
                             "host": [
-                                "{{baseUrl}}"
+                                "http://localhost:8080"
                             ],
                             "path": [
                                 "api",
@@ -258,9 +253,9 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/transactions/withdraw",
+                            "raw": "http://localhost:8080/api/v1/transactions/withdraw",
                             "host": [
-                                "{{baseUrl}}"
+                                "http://localhost:8080"
                             ],
                             "path": [
                                 "api",
@@ -286,9 +281,9 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/transactions/transfer",
+                            "raw": "http://localhost:8080/api/v1/transactions/transfer",
                             "host": [
-                                "{{baseUrl}}"
+                                "http://localhost:8080"
                             ],
                             "path": [
                                 "api",
@@ -314,9 +309,9 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/transactions/payment",
+                            "raw": "http://localhost:8080/api/v1/transactions/payment",
                             "host": [
-                                "{{baseUrl}}"
+                                "http://localhost:8080"
                             ],
                             "path": [
                                 "api",
@@ -342,9 +337,9 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/transactions/refund",
+                            "raw": "http://localhost:8080/api/v1/transactions/refund",
                             "host": [
-                                "{{baseUrl}}"
+                                "http://localhost:8080"
                             ],
                             "path": [
                                 "api",
@@ -370,9 +365,9 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/transactions/reversal",
+                            "raw": "http://localhost:8080/api/v1/transactions/reversal",
                             "host": [
-                                "{{baseUrl}}"
+                                "http://localhost:8080"
                             ],
                             "path": [
                                 "api",
@@ -398,9 +393,9 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/transactions/bulk",
+                            "raw": "http://localhost:8080/api/v1/transactions/bulk",
                             "host": [
-                                "{{baseUrl}}"
+                                "http://localhost:8080"
                             ],
                             "path": [
                                 "api",
@@ -420,9 +415,9 @@
                     "request": {
                         "method": "GET",
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/transactions/history?accountId={{accountId1}}",
+                            "raw": "http://localhost:8080/api/v1/transactions/history?accountId={{accountId1}}",
                             "host": [
-                                "{{baseUrl}}"
+                                "http://localhost:8080"
                             ],
                             "path": [
                                 "api",
@@ -444,9 +439,9 @@
                     "request": {
                         "method": "GET",
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/transactions/{{transactionId}}/status",
+                            "raw": "http://localhost:8080/api/v1/transactions/{{transactionId}}/status",
                             "host": [
-                                "{{baseUrl}}"
+                                "http://localhost:8080"
                             ],
                             "path": [
                                 "api",
@@ -469,9 +464,9 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/transactions/{{transactionId}}/status",
+                            "raw": "http://localhost:8080/api/v1/transactions/{{transactionId}}/status",
                             "host": [
-                                "{{baseUrl}}"
+                                "http://localhost:8080"
                             ],
                             "path": [
                                 "api",
@@ -497,9 +492,9 @@
                     "request": {
                         "method": "GET",
                         "url": {
-                            "raw": "{{baseUrl}}/actuator/health",
+                            "raw": "http://localhost:8080/actuator/health",
                             "host": [
-                                "{{baseUrl}}"
+                                "http://localhost:8080"
                             ],
                             "path": [
                                 "actuator",
@@ -513,9 +508,9 @@
                     "request": {
                         "method": "GET",
                         "url": {
-                            "raw": "{{baseUrl}}/actuator/metrics",
+                            "raw": "http://localhost:8080/actuator/metrics",
                             "host": [
-                                "{{baseUrl}}"
+                                "http://localhost:8080"
                             ],
                             "path": [
                                 "actuator",
