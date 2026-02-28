@@ -1,0 +1,27 @@
+-- Transactions table
+CREATE TABLE IF NOT EXISTS transactions (
+    id                      UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    source_account_id       UUID REFERENCES accounts(id),
+    target_account_id       UUID REFERENCES accounts(id),
+    amount                  DECIMAL(19, 4) NOT NULL,
+    currency                VARCHAR(3) NOT NULL DEFAULT 'USD',
+    type                    VARCHAR(20) NOT NULL,
+    status                  VARCHAR(20) NOT NULL DEFAULT 'PENDING',
+    reference_number        VARCHAR(50) NOT NULL UNIQUE,
+    description             VARCHAR(500),
+    idempotency_key         VARCHAR(100),
+    channel                 VARCHAR(50),
+    merchant_id             VARCHAR(100),
+    merchant_name           VARCHAR(255),
+    payment_method          VARCHAR(50),
+    order_id                VARCHAR(100),
+    batch_id                VARCHAR(100),
+    closing_balance         DECIMAL(19, 4),
+    reversal_reason         VARCHAR(500),
+    initiated_by            VARCHAR(255),
+    approved_by             VARCHAR(255),
+    original_transaction_id VARCHAR(100),
+    created_at              TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at              TIMESTAMP NOT NULL DEFAULT NOW(),
+    version                 BIGINT NOT NULL DEFAULT 0
+);

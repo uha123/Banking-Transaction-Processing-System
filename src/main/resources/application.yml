@@ -1,0 +1,81 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: banking-transaction-system
+
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
+  # ─── Liquibase (runs over JDBC) ───
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    enabled: true
+
+  # ─── R2DBC PostgreSQL (Reactive) ───
+  r2dbc:
+    url: r2dbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5434}/${DB_NAME:bankingdb}
+    username: ${DB_USERNAME:postgres}
+    # password: ${DB_PASSWORD:postgres}
+    password: ${DB_PASSWORD:admin}
+    pool:
+      initial-size: 10
+      max-size: 50
+      max-idle-time: 30m
+
+  # ─── JDBC (for Liquibase only) ───
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5434}/${DB_NAME:bankingdb}
+    username: ${DB_USERNAME:postgres}
+    # password: ${DB_PASSWORD:postgres}
+    password: ${DB_PASSWORD:admin}
+    driver-class-name: org.postgresql.Driver
+
+  # ─── Disable R2DBC schema init (Liquibase handles it) ───
+  sql:
+    init:
+      mode: never
+
+  # ─── Kafka ───
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9094}
+    consumer:
+      group-id: banking-transaction-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+    producer:
+      acks: all
+      retries: 3
+
+  # ─── Redis ───
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: 5000ms
+
+  # ─── Jackson ───
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: non_null
+
+# ─── Actuator ───
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+
+# ─── Logging ───
+logging:
+  level:
+    root: INFO
+    com.banking.transaction: INFO
+    org.springframework.r2dbc: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

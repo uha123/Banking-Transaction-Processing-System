@@ -1,0 +1,9 @@
+.git
+.gradle
+build
+*.md
+*.log
+.idea
+*.iml
+docker-compose.yml
+k8s/

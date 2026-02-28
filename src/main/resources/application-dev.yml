@@ -1,0 +1,34 @@
+# ─── Development Profile ───
+spring:
+  r2dbc:
+    # url: r2dbc:postgresql://localhost:5432/bankingdb
+    url: r2dbc:postgresql://localhost:5434/bankingdb
+    username: postgres
+    # password: postgres
+    password: admin
+
+  datasource:
+    # url: jdbc:postgresql://localhost:5432/bankingdb
+    url: jdbc:postgresql://localhost:5434/bankingdb
+    username: postgres
+    # password: postgres
+    password: admin
+
+  kafka:
+    bootstrap-servers: localhost:9094
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  liquibase:
+    enabled: true
+
+logging:
+  level:
+    root: INFO
+    com.banking.transaction: DEBUG
+    org.springframework.r2dbc: DEBUG
+    org.springframework.kafka: INFO
+    liquibase: INFO

@@ -1,0 +1,476 @@
+{
+    "info": {
+        "name": "Banking Transaction Processing System",
+        "_postman_id": "banking-txn-v1",
+        "description": "Complete API collection for the Banking Transaction Processing System. \n\nUsage order:\n1. Run 'Create Account (Primary)' → accountId1 auto-saved\n2. Run 'Create Account (Secondary)' → accountId2 auto-saved\n3. Run any transaction endpoint\n4. Refund/Status use the transactionId auto-captured from Deposit",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:8080",
+            "type": "string"
+        },
+        {
+            "key": "accountId1",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "accountId2",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "transactionId",
+            "value": "",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "Accounts",
+            "item": [
+                {
+                    "name": "Create Account (Primary)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "const res = pm.response.json();",
+                                    "if (res.data && res.data.id) {",
+                                    "    pm.collectionVariables.set('accountId1', res.data.id);",
+                                    "    console.log('accountId1 set to:', res.data.id);",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/accounts",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "accounts"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"accountNumber\": \"ACC-001\",\n  \"holderName\": \"John Doe\",\n  \"initialBalance\": 10000.00,\n  \"currency\": \"USD\",\n  \"accountType\": \"SAVINGS\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Create Account (Secondary)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "const res = pm.response.json();",
+                                    "if (res.data && res.data.id) {",
+                                    "    pm.collectionVariables.set('accountId2', res.data.id);",
+                                    "    console.log('accountId2 set to:', res.data.id);",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/accounts",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "accounts"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"accountNumber\": \"ACC-002\",\n  \"holderName\": \"Jane Smith\",\n  \"initialBalance\": 5000.00,\n  \"currency\": \"USD\",\n  \"accountType\": \"CURRENT\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Get Account by ID",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/accounts/{{accountId1}}",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "accounts",
+                                "{{accountId1}}"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get All Accounts",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/accounts",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "accounts"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Account Balance",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/accounts/{{accountId1}}/balance",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "accounts",
+                                "{{accountId1}}",
+                                "balance"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Transactions",
+            "item": [
+                {
+                    "name": "Deposit",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "const res = pm.response.json();",
+                                    "if (res.data && res.data.transactionId) {",
+                                    "    pm.collectionVariables.set('transactionId', res.data.transactionId);",
+                                    "    console.log('transactionId set to:', res.data.transactionId);",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/transactions/deposit",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "transactions",
+                                "deposit"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"idempotencyKey\": \"dep-001\",\n  \"accountId\": \"{{accountId1}}\",\n  \"amount\": 500.00,\n  \"currency\": \"USD\",\n  \"description\": \"Salary credit\",\n  \"channel\": \"ONLINE\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Withdraw",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/transactions/withdraw",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "transactions",
+                                "withdraw"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"idempotencyKey\": \"wdr-001\",\n  \"accountId\": \"{{accountId1}}\",\n  \"amount\": 200.00,\n  \"currency\": \"USD\",\n  \"description\": \"ATM withdrawal\",\n  \"channel\": \"ATM\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Transfer",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/transactions/transfer",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "transactions",
+                                "transfer"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"idempotencyKey\": \"txn-001\",\n  \"sourceAccountId\": \"{{accountId1}}\",\n  \"destinationAccountId\": \"{{accountId2}}\",\n  \"amount\": 150.00,\n  \"currency\": \"USD\",\n  \"description\": \"Rent payment\",\n  \"channel\": \"MOBILE_APP\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Payment",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/transactions/payment",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "transactions",
+                                "payment"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"idempotencyKey\": \"pay-001\",\n  \"sourceAccountId\": \"{{accountId1}}\",\n  \"amount\": 99.99,\n  \"currency\": \"USD\",\n  \"merchantId\": \"MERCH-001\",\n  \"merchantName\": \"Amazon India\",\n  \"orderId\": \"ORD-9988\",\n  \"paymentMethod\": \"DEBIT_CARD\",\n  \"channel\": \"ONLINE\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Refund",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/transactions/refund",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "transactions",
+                                "refund"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"idempotencyKey\": \"ref-001\",\n  \"originalTransactionId\": \"{{transactionId}}\",\n  \"description\": \"Customer return refund\",\n  \"channel\": \"ONLINE\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Reversal",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/transactions/reversal",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "transactions",
+                                "reversal"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"idempotencyKey\": \"rev-001\",\n  \"originalTransactionId\": \"{{transactionId}}\",\n  \"reversalReason\": \"Fraudulent transaction detected\",\n  \"initiatedBy\": \"admin@banking.com\",\n  \"approvedBy\": \"supervisor@banking.com\",\n  \"channel\": \"BRANCH\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Bulk Transfer",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/transactions/bulk",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "transactions",
+                                "bulk"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"idempotencyKey\": \"bulk-001\",\n  \"sourceAccountId\": \"{{accountId1}}\",\n  \"batchId\": \"BATCH-20260228\",\n  \"currency\": \"USD\",\n  \"processingMode\": \"PARALLEL\",\n  \"transactions\": [\n    {\n      \"sequenceNumber\": 1,\n      \"destinationAccountId\": \"{{accountId2}}\",\n      \"amount\": 50.00,\n      \"description\": \"Bulk item 1\"\n    },\n    {\n      \"sequenceNumber\": 2,\n      \"destinationAccountId\": \"{{accountId2}}\",\n      \"amount\": 75.00,\n      \"description\": \"Bulk item 2\"\n    }\n  ]\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Get Transaction Status",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/transactions/{{transactionId}}/status",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "transactions",
+                                "{{transactionId}}",
+                                "status"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Transaction",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/transactions/{{transactionId}}/status",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "transactions",
+                                "{{transactionId}}",
+                                "status"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"idempotencyKey\": \"upd-001\",\n  \"transactionType\": \"TRANSFER\",\n  \"amount\": 150.00,\n  \"description\": \"Updated description\"\n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Health",
+            "item": [
+                {
+                    "name": "Health Check",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{baseUrl}}/actuator/health",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "actuator",
+                                "health"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Metrics",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{baseUrl}}/actuator/metrics",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "actuator",
+                                "metrics"
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
